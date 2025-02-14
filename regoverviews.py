@@ -93,11 +93,8 @@ def main():
     
     try:
         args = parser.parse_args()
-    except SystemExit as e:
-        if e.code == 2:  # Only override if argparse exits with status 2 (invalid arguments)
-            sys.exit(2)
-    else:
-        sys.exit(0)  # Allow help (-h) to exit with status 0
+    except SystemExit:
+        sys.exit(2) # Exit with status 2 if argument parsing fails
     
 
     results = fetch_classes(dept=args.d, num=args.n, area=args.a, title=args.t)
