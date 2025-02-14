@@ -47,6 +47,31 @@ def main():
 
     # Add more tests here.
 
+    # Boundary (alias corner case) Test Cases
+    exec_command(program, '-d XYZ')  # Non-existent department (should return no results)
+    exec_command(program, '-n 9999')  # Non-existent course number
+    exec_command(program, '-t ""')    # Empty string as filter (should be ignored or handled)
+    exec_command(program, '-t " "')  # Space as input  
+    exec_command(program, '-t "!@#$%^&*()"')    # Special characters in filters (SQL safety test)
+    exec_command(program, '-t "A Very Long Course Title That Exceeds 72 Characters For Testing"') # Long course title (should wrap properly)
+    exec_command(program, '-d ELE')  # Courses with multiple cross-listings (should appear under all relevant depts)
+    exec_command(program, '-n 999') # Course with no professor assigned (should handle missing professor case)
+   
+    # Statement Test Cases
+    exec_command(program, '')  # Default behavior (fetch all courses, no filters applied)
+    exec_command(program, '-h') # Help message (triggers argparse help function)
+    #  Argument parsing (all valid filters) other than -d COS (already done earlier)
+    exec_command(program, '-n 333')   
+    exec_command(program, '-a QR')    
+    exec_command(program, '-t intro')  
+    # Invalid arguments (ensures error handling)
+    exec_command(program, '-x')  # Unknown flag  
+    exec_command(program, '-a')  # Missing argument value  
+    exec_command(program, '-d')  # Missing department value  
+    exec_command(program, 'a qr')  # Incorrect format 
+
+    
+
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
