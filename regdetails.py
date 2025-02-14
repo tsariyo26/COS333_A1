@@ -11,6 +11,8 @@ import sys
 def fetch_class_details(conn, classid):
     """Retrieve class details from the database."""
     try:
+
+        # Make cursor object for database interaction
         cur = conn.cursor()
         
         # Fetch class information
