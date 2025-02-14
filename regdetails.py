@@ -1,3 +1,8 @@
+#-----------------------------------------------------------------------
+# regdetails.py
+# Author: Toluwanimi Ariyo, Michael Igbinoba
+#-----------------------------------------------------------------------
+
 import argparse
 import sqlite3
 import textwrap
