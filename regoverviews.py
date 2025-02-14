@@ -94,6 +94,8 @@ def main():
     try:
         args = parser.parse_args()
     except SystemExit:
+        if "-h" in sys.argv or "--help" in sys.argv:  
+            sys.exit(0)  # Ensure help message exits with 0
         sys.exit(2) # Exit with status 2 if argument parsing fails
     
 
