@@ -8,9 +8,13 @@
  Displays the classid, dept, coursenum, area, and title of each 
  class that matches the criteria specified by the user via command-line arguments
 '''
+
+# (TO-DO) Handle escape characters
+
 import sqlite3
 import argparse
 import textwrap
+import sys
 
 def fetch_classes(dept=None, num=None, area=None, title=None, db_path="reg.sqlite"):
     """
@@ -41,29 +45,33 @@ def fetch_classes(dept=None, num=None, area=None, title=None, db_path="reg.sqlit
     
     query += " ORDER BY crosslistings.dept ASC, crosslistings.coursenum ASC, classes.classid ASC"
     
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute(query, params)
-    results = cursor.fetchall()
-    conn.close()
-    
-    return results
+    try: 
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+        conn.close()
+        return results
+    except sqlite3.DatabaseError as e:
+        print(f"Database error: {e}", file=sys.stderr)
+        sys.exit(1) # Exit with status 1 on database error
+
+    return []  # Return an empty list in case of an error
 
 def print_table(results):
     """
     Prints the retrieved class data in a formatted table with column headers.
     """
-    if not results:
-        print("No matching classes found.")
-        return
-    
-    headers = ["ClsID", "Dept", "CrsNum", "Area", "Title"]
-    header_line = "%-7s %-4s %-6s %-4s %-50s" % tuple(headers)
+    headers = ["ClsId", "Dept", "CrsNum", "Area", "Title"]
+    header_line = "%-7s %-4s %-6s %-4s %-5s" % tuple(headers)
     underline = "{:<5} {:<4} {:<6} {:<4} {:<5}".format("-"*5, "-"*4, "-"*6, "-"*4, "-"*5)
 
-    
     print(header_line)
     print(underline)
+    
+    if not results:
+        return
+    
     
     for row in results:
         classid, dept, coursenum, area, title = row
@@ -76,15 +84,22 @@ def main():
     """
     Parses command-line arguments and retrieves and displays class information.
     """
+    
     parser = argparse.ArgumentParser(description="Registrar application: show overviews of classes")
     parser.add_argument("-d", metavar="dept", help="show only those classes whose department contains dept")
     parser.add_argument("-n", metavar="num", help="show only those classes whose course number contains num")
     parser.add_argument("-a", metavar="area", help="show only those classes whose distrib area contains area")
     parser.add_argument("-t", metavar="title", help="show only those classes whose course title contains title")
-    args = parser.parse_args()
     
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        sys.exit(2) # Exit with status 2 if argument parsing fails
+    
+
     results = fetch_classes(dept=args.d, num=args.n, area=args.a, title=args.t)
     print_table(results)
+    sys.exit(0)  # Exit with status 0 on success
 
 if __name__ == "__main__":
     main()
