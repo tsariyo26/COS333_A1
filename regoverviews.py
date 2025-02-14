@@ -63,7 +63,7 @@ def print_table(results):
     Prints the retrieved class data in a formatted table with column headers.
     """
     headers = ["ClsId", "Dept", "CrsNum", "Area", "Title"]
-    header_line = "%-7s %-4s %-6s %-4s %-5s" % tuple(headers)
+    header_line = "%-5s %-4s %-6s %-4s %-5s" % tuple(headers)
     underline = "{:<5} {:<4} {:<6} {:<4} {:<5}".format("-"*5, "-"*4, "-"*6, "-"*4, "-"*5)
 
     print(header_line)
