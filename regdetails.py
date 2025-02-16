@@ -42,35 +42,45 @@ def fetch_class_details(conn, classid):
         sys.exit(1)
 
 def format_output(class_info, crosslistings, professors):
-    """Format and print the class details."""
+    # Format and print the class details.
     classid, courseid, days, starttime, endtime, bldg, roomnum, area, title, descrip, prereqs = class_info
     
+    print("-" * 14)
     print("Class Details")
-    print("=" * 40)
-    print(f"Class ID:   {classid}")
-    print(f"Course ID:  {courseid}")
-    print(f"Schedule:   {days} {starttime}-{endtime}")
-    print(f"Location:   {bldg} {roomnum}")
-    print(f"Area:       {area}")
-    print(f"Title:      {title}")
+    print("-" * 14)
+    print(f"Class Id: {classid}")
+    print(f"Days: {days}")
+    print(f"Start time: {starttime}")
+    print(f"End time: {endtime}")
+    print(f"Building: {bldg}")
+    print(f"Room: {roomnum}")
+
+    print("-" * 14)
+    print("Course Details")
+    print("-" * 14)
     
-    print("\nDescription:")
-    for line in textwrap.wrap(descrip, width=72):
-        print(line)
+    print(f"Course Id: {courseid}")
+    if crosslistings:
+        course = ", ".join(f"{dept} {coursenum}" for dept, coursenum in crosslistings)
+    print(f"Dept and Number: {course}")
+    print(f"Area: {area}")
+    print(f"Title: {title}")
+
+    # Use textwrap to fix indentation and wrapping
+    prefix = "Prerequisites: "
+    descrip_text = textwrap.fill(
+    descrip, width=72, initial_indent=prefix, subsequent_indent=" " * 3
+    )
+    print(descrip_text)
     
-    if prereqs:
-        print("\nPrerequisites:")
-        for line in textwrap.wrap(prereqs, width=72):
-            print(line)
-    
-    print("\nDepartments and Course Numbers:")
-    for dept, coursenum in crosslistings:
-        print(f"  {dept} {coursenum}")
-    
+    prereq_text = textwrap.fill(
+    prereqs, width=72, initial_indent=prefix, subsequent_indent=" " * 3
+    )
+    print(prereq_text)
     if professors:
-        print("\nProfessors:")
-        for profname, in professors:
-            print(f"  {profname}")
+        print(f"Professors: {', '.join(prof[0] for prof in professors)}")
+
+        
 
 def main():
     parser = argparse.ArgumentParser(description="Registrar application: show details about a class")
@@ -90,8 +100,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    # return class_info, crosslistings, professors
-    # except sqlite3.Error as e:
-    # print(f"Database error: {e}", file=sys.stderr)
-    # sys.exit(1)
