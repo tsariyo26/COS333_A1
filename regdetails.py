@@ -61,12 +61,17 @@ def format_output(class_info, crosslistings, professors):
     
     print(f"Course Id: {courseid}")
     if crosslistings:
-        course = ", ".join(f"{dept} {coursenum}" for dept, coursenum in crosslistings)
-    print(f"Dept and Number: {course}")
-    print(f"Area:{area}")
-    print(f"Title: {title}")
+        for dept, coursenum in crosslistings:
+            print(f'Dept and Number: {dept} {coursenum}')
+    print(f"Area: {area}")
 
     # Use textwrap to fix indentation and wrapping
+    prefix = "Title: "
+    title_text = textwrap.fill(
+    title, width=72, initial_indent=prefix, subsequent_indent=" " * 3
+    )
+    print(title_text)
+
     prefix = "Description: "
     descrip_text = textwrap.fill(
     descrip, width=72, initial_indent=prefix, subsequent_indent=" " * 3
@@ -79,7 +84,8 @@ def format_output(class_info, crosslistings, professors):
     )
     print(prereq_text)
     if professors:
-        print(f"Professor: {', '.join(prof[0] for prof in professors)}")
+        for prof in professors:
+         print(f'Professor: {prof[0]}')
 
         
 
