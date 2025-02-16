@@ -18,7 +18,7 @@ def fetch_class_details(conn, classid):
         """, (classid,))
         class_info = cur.fetchone()
         if not class_info:
-            print(f"no class with classid {classid} exists", file=sys.stderr)
+            print(f"regdetails.py: no class with classid {classid} exists", file=sys.stderr)
             sys.exit(1)
         
          # Fetch departments and course numbers
@@ -63,7 +63,7 @@ def format_output(class_info, crosslistings, professors):
     if crosslistings:
         course = ", ".join(f"{dept} {coursenum}" for dept, coursenum in crosslistings)
     print(f"Dept and Number: {course}")
-    print(f"Area: {area}")
+    print(f"Area:{area}")
     print(f"Title: {title}")
 
     # Use textwrap to fix indentation and wrapping
