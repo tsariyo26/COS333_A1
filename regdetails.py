@@ -18,7 +18,7 @@ def fetch_class_details(conn, classid):
         """, (classid,))
         class_info = cur.fetchone()
         if not class_info:
-            print(f"Error: No class found with classid {classid}", file=sys.stderr)
+            print(f"no class with classid {classid} exists", file=sys.stderr)
             sys.exit(1)
         
          # Fetch departments and course numbers
@@ -45,9 +45,9 @@ def format_output(class_info, crosslistings, professors):
     # Format and print the class details.
     classid, courseid, days, starttime, endtime, bldg, roomnum, area, title, descrip, prereqs = class_info
     
-    print("-" * 14)
+    print("-" * 13)
     print("Class Details")
-    print("-" * 14)
+    print("-" * 13)
     print(f"Class Id: {classid}")
     print(f"Days: {days}")
     print(f"Start time: {starttime}")
@@ -67,18 +67,19 @@ def format_output(class_info, crosslistings, professors):
     print(f"Title: {title}")
 
     # Use textwrap to fix indentation and wrapping
-    prefix = "Prerequisites: "
+    prefix = "Description: "
     descrip_text = textwrap.fill(
     descrip, width=72, initial_indent=prefix, subsequent_indent=" " * 3
     )
     print(descrip_text)
     
+    prefix = "Prerequisites: "
     prereq_text = textwrap.fill(
     prereqs, width=72, initial_indent=prefix, subsequent_indent=" " * 3
     )
     print(prereq_text)
     if professors:
-        print(f"Professors: {', '.join(prof[0] for prof in professors)}")
+        print(f"Professor: {', '.join(prof[0] for prof in professors)}")
 
         
 
