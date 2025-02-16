@@ -45,8 +45,11 @@ def main():
 
     exec_command(program, '8321')
 
-    # Add more tests here.
-
+    # Boundary Test Cases
+    exec_command(program, '9034') # Non-existent course
+    exec_command(program, 'abc1234') # Non-integer course-ID
+    exec_command(program, '9032 8231') # Two courses at once
+    
 if __name__ == '__main__':
     main()
 
