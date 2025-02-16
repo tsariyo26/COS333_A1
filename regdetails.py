@@ -91,7 +91,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-        return class_info, crosslistings, professors
-    except sqlite3.Error as e:
-        print(f"Database error: {e}", file=sys.stderr)
-        sys.exit(1)
+    # return class_info, crosslistings, professors
+    # except sqlite3.Error as e:
+    # print(f"Database error: {e}", file=sys.stderr)
+    # sys.exit(1)
