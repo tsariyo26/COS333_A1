@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 # testregdetails.py
-# Author: Bob Dondero
+# Author: Toluwanimi Ariyo, Michael Igbinoba
 #-----------------------------------------------------------------------
 
 import os
@@ -46,10 +46,15 @@ def main():
     exec_command(program, '8321')
 
     # Boundary Test Cases
-    exec_command(program, '9034') # Non-existent course
-    exec_command(program, 'abc1234') # Non-integer course-ID
-    exec_command(program, '9032 8231') # Two courses at once
+    exec_command(program, '')  # Empty input
+    exec_command(program, '9034')  # Non-existent course
+    exec_command(program, 'abc1234')  # Non-integer course-ID
+    exec_command(program, '9032 8231')  # Two courses at once
+    exec_command(program, '-1')  # Negative course ID
+    exec_command(program, '0')  # Course ID of zero
+    exec_command(program, '999999999999')  # Extremely large course ID
+    exec_command(program, '@#$$!')  # Special characters
     
+
 if __name__ == '__main__':
     main()
-
