@@ -44,6 +44,11 @@ def main():
     program = sys.argv[1]
 
     exec_command(program, '8321')
+    exec_command(program, '9032')
+    exec_command(program, '8293')
+    exec_command(program, '9977')
+    exec_command(program, '9012')
+    exec_command(program, '10188')
 
     # Boundary Test Cases
     exec_command(program, '')  # Empty input
