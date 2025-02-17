@@ -39,7 +39,7 @@ def fetch_class_details(conn, classid):
         print(f"Database error: {e}", file=sys.stderr)
         sys.exit(1)
 def format_output(class_info, crosslistings, professors):
-    # Format and print the class details.
+    # Format and print the class details
     classid, courseid, days, \
     starttime, endtime, bldg, \
     roomnum, area, title, descrip, prereqs = class_info
@@ -61,7 +61,6 @@ def format_output(class_info, crosslistings, professors):
             print(f'Dept and Number: {dept} {coursenum}')
     print(f"Area: {area.strip()}"
     if area and area.strip() else "Area:".rstrip())
-    # Use textwrap to fix indentation and wrapping
     prefix = "Title: "
     title_text = textwrap.fill(
     title, width=72, initial_indent=prefix, subsequent_indent=" " * 3
@@ -79,7 +78,7 @@ def format_output(class_info, crosslistings, professors):
         initial_indent=prefix,
         subsequent_indent=" " * 3
     )
-    if prereqs.strip() else prefix.rstrip()  # Strip trailing whitespace
+    if prereqs.strip() else prefix.rstrip()
     )
     print(prereq_text)
     if professors:

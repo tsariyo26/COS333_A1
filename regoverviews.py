@@ -3,14 +3,6 @@
 # Author: Toluwanimi Ariyo, Michael Igbinoba
 #-----------------------------------------------------------------------
 
-'''
- OVERVIEW OF FUNCTIONALITY:
- Displays the classid, dept, coursenum, area, and title of each 
- class that matches the criteria specified 
- by the user via command-line arguments
-'''
-
-# (TO-DO) Handle escape characters
 
 import sqlite3
 import argparse
