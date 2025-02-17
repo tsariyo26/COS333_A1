@@ -24,7 +24,7 @@ def print_flush(message):
 def exec_command(program, args):
 
     print_flush(UNDERLINE)
-    command = 'python ' + program + ' ' + args
+    command = 'python3 ' + program + ' ' + args
     print_flush(command)
     exit_status = os.system(command)
     if os.name == 'nt':  # Running on MS Windows?
@@ -58,7 +58,7 @@ def main():
     exec_command(program, '-1')  # Negative course ID
     exec_command(program, '0')  # Course ID of zero
     exec_command(program, '999999999999')  # Extremely large course ID
-    exec_command(program, '@#$$!')  # Special characters
+    exec_command(program, "'@#$$!'")  # Special characters
     
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@ def print_flush(message):
 def exec_command(program, args):
 
     print_flush(UNDERLINE)
-    command = 'python ' + program + ' ' + args
+    command = 'python3 ' + program + ' ' + args
     print_flush(command)
     exit_status = os.system(command)
     if os.name == 'nt':  # Running on MS Windows?
